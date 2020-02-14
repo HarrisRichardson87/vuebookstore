@@ -1,8 +1,8 @@
 <template>
     
-    <div class="container">
-        <input id='input' class="form-control mr-sm-3" type="text" v-model="search" placeholder="Search">
-            <div id="flip-card" v-for="item in filteredBooks">
+    <div class="container" id='bookContainter'>
+        <!-- <input id='input' class="form-control mr-sm-3" type="text" v-model="search" placeholder="Search"> -->
+            <div id="flip-card" v-for="item in filteredBooks" v-bind:key="item">
                 <a  infobar="true" class="thumbnail fancybox" :href=item.detalle data-fancybox="images" data-width="2048"
                     clickOutside='true' closeClick="true"
                     data-height="1365">
@@ -46,6 +46,7 @@ export default {
             return res.json();
           }
         }).then(function (json) {
+            console.log("GONZALOOOO"); 
           console.log(json.books)
           console.log(this.books)
           
@@ -65,11 +66,15 @@ export default {
     computed:{
         filteredBooks: function(){
            return this.books.filter((books)=>{
-                return books.titulo.toLowerCase().match(this.search.toLowerCase())
+                return books.titulo.toLowerCase().match(this.searchData.toLowerCase())
             })
+        }
+    },
+    props:{
+        searchData:{
+            type:String
         }
     }
   
 }
 </script>
-
